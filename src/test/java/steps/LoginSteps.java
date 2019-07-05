@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
@@ -21,48 +23,59 @@ public class LoginSteps {
     WebDriverWait wait;
 
     @Before()
-    public void setUp() {
-        this.driver = new ChromeDriver();
+    public void setup() throws IOException {
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    @Given("^User navigates to stackoverflow website$")
-    public void user_navigates_to_stackoverflow_website() throws Throwable {
-        driver.get("https://stackoverflow.com/");
+    @Given("^I access webdriverunivsity\\.com$")
+    public void i_access_webdriverunivsity_com() throws Throwable {
+        driver.get("http://www.webdriveruniversity.com");
     }
 
-    @And("^User clicks on the login button on homepage$")
-    public void user_clicks_on_the_login_button_on_homepage() throws Throwable {
-        WebElement logInLink = driver.findElement(By.xpath("//a[contains(text(), 'Log in')]"));
-        logInLink.click();
-    }
-
-    @And("^User enters a valid username$")
-    public void user_enters_a_valid_username() throws Throwable {
+    @When("^I click on the login portal button$")
+    public void i_click_on_the_login_portal_button() throws Throwable {
         wait = new WebDriverWait(driver, 5);
-        WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
-        emailInput.sendKeys("webdriveruniversity2@mail.com");
+        WebElement loginPortalButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-portal")));
+        loginPortalButton.click();
     }
 
-    @And("^User enters a valid password$")
-    public void user_enters_a_valid_password() throws Throwable {
-        WebElement passwordInput = driver.findElement(By.id("password"));
-        passwordInput.sendKeys("Yellow321!");
-    }
+    @When("^I enter a username$")
+    public void i_enter_a_username() throws Throwable {
+        @SuppressWarnings("unused")
+        String winHandlerBefore = driver.getWindowHandle();
 
-    @When("^User clicks on the login button$")
-    public void user_clicks_on_the_login_button() throws Throwable {
-        WebElement logInButton = driver.findElement(By.id("submit-button"));
-        logInButton.click();
-    }
+        for (String windowHandle: driver.getWindowHandles()) {
+            driver.switchTo().window(windowHandle);
+        }
 
-    @Then("^User should be taken to the successful login page$")
-    public void user_should_be_taken_to_the_successful_login_page() throws Throwable {
         wait = new WebDriverWait(driver, 5);
-        By locator = By.xpath("//a[contains(text(), 'Ask Question')]");
-        WebElement askQuestionButton = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        Assert.assertTrue(askQuestionButton.isDisplayed());
-        Assert.assertTrue(driver.getPageSource().contains("Top Questions"));
+        WebElement usernameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("text")));
+        usernameInput.sendKeys("webdriver");
     }
+
+    @When("^I enter a \"([^\"]*)\" password$")
+    public void i_enter_a_password(String password) throws Throwable {
+        driver.findElement(By.id("password")).sendKeys(password);
+    }
+
+    @When("^I click on the login button$")
+    public void i_click_on_the_login_button() throws Throwable {
+        driver.findElement(By.id("login-button")).click();
+    }
+
+    @Then("^I should be presented with a succesfful validation alert$")
+    public void i_should_be_presented_with_a_succesfful_validation_alert() throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        Assert.assertEquals(alert.getText(), "validation succeeded");
+    }
+
+    @Then("^I should be presented with a unsuccesfful validation alert$")
+    public void i_should_be_presented_with_a_unsuccesfful_validation_alert() throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        Assert.assertEquals(alert.getText(), "validation failed");
+    }
+
 }
