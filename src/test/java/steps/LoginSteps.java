@@ -44,7 +44,7 @@ public class LoginSteps {
 
     @When("^I enter a username$")
     public void i_enter_a_username() throws Throwable {
-        @SuppressWarnings("unused")
+        // Store the current window handle
         String winHandlerBefore = driver.getWindowHandle();
 
         for (String windowHandle: driver.getWindowHandles()) {
