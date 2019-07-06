@@ -1,10 +1,13 @@
 package steps;
 
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,10 +15,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
 
@@ -69,13 +68,19 @@ public class LoginSteps {
     @Then("^I should be presented with a succesfful validation alert$")
     public void i_should_be_presented_with_a_succesfful_validation_alert() throws Throwable {
         Alert alert = driver.switchTo().alert();
-        Assert.assertEquals(alert.getText(), "validation succeeded");
+        MatcherAssert.assertThat(
+            alert.getText(),
+            Matchers.is("validation succeeded")
+        );
     }
 
     @Then("^I should be presented with a unsuccesfful validation alert$")
     public void i_should_be_presented_with_a_unsuccesfful_validation_alert() throws Throwable {
         Alert alert = driver.switchTo().alert();
-        Assert.assertEquals(alert.getText(), "validation failed");
+        MatcherAssert.assertThat(
+            alert.getText(),
+            Matchers.is("validation failed")
+        );
     }
 
 }

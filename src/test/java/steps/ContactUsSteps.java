@@ -1,10 +1,9 @@
 package steps;
 
-import cucumber.api.DataTable;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -53,7 +52,7 @@ public class ContactUsSteps {
 
     @When("^I enter a valid last name$")
     public void i_enter_a_valid_last_name(DataTable table) throws Throwable {
-        List<List<String>> data = table.raw();
+        List<List<String>> data = table.asLists();
         By lastNameSelector = By.cssSelector("input[name='first_last']");
         wait = new WebDriverWait(driver, 5);
         WebElement lastName = wait.until(ExpectedConditions.visibilityOfElementLocated(lastNameSelector));
@@ -70,7 +69,7 @@ public class ContactUsSteps {
 
     @When("^I enter comments$")
     public void i_enter_comments(DataTable table) throws Throwable {
-        List<List<String>> data = table.raw();
+        List<List<String>> data = table.asLists();
         WebElement textArea = driver.findElement(By.cssSelector("textarea[name='message']"));
         textArea.sendKeys(data.get(1).get(0) + "\n");
         textArea.sendKeys(data.get(1).get(1));

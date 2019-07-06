@@ -13,6 +13,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <cucumber.version>4.5.2</cucumber.version>
     </properties>
 
     <build>
@@ -83,22 +84,7 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-jvm</artifactId>
-            <version>4.4.0</version>
-            <type>pom</type>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-core</artifactId>
-            <version>4.4.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-core -->
-        <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-core</artifactId>
-            <version>1.2.5</version>
+            <version>${cucumber.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-html -->
@@ -110,24 +96,16 @@
 
         <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-java -->
         <dependency>
-            <groupId>info.cukes</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>1.2.5</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-jvm-deps -->
-        <dependency>
             <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-jvm-deps</artifactId>
-            <version>1.0.6</version>
-            <scope>provided</scope>
+            <artifactId>cucumber-java8</artifactId>
+            <version>${cucumber.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/gherkin -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>gherkin</artifactId>
-            <version>6.0.17</version>
+            <version>5.1.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all -->
@@ -142,22 +120,15 @@
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
-            <version>4.4.0</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-testng</artifactId>
-            <version>4.4.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-junit -->
         <dependency>
-            <groupId>info.cukes</groupId>
+            <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
-            <version>1.1.2</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -182,12 +153,6 @@
             <version>4.7.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.vimalselvam/cucumber-extentsreport -->
-        <dependency>
-            <groupId>com.vimalselvam</groupId>
-            <artifactId>cucumber-extentsreport</artifactId>
-            <version>3.1.1</version>
-        </dependency>
     </dependencies>
 
 </project>
