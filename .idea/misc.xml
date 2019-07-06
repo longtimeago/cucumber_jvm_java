@@ -13,12 +13,13 @@
       <profile-state>
         <expanded-state>
           <State />
-        </expanded-state>
-        <selected-state>
           <State>
-            <id>Android</id>
+            <id>Java</id>
           </State>
-        </selected-state>
+          <State>
+            <id>Java language level migration aidsJava</id>
+          </State>
+        </expanded-state>
       </profile-state>
     </entry>
   </component>
